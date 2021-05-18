@@ -9,7 +9,7 @@ public class BotsInstantiate : MonoBehaviour
     public List<Transform> _spawnTransforRed;
     public List<Transform> _spawnTransforBLue;
 
-    void Start()
+    void Awake()
     {
         if (_prefabBotBlue == null || _prefabBotRed == null ||
             _spawnTransforBLue == null || _spawnTransforRed == null) return;
@@ -20,6 +20,7 @@ public class BotsInstantiate : MonoBehaviour
         foreach (var item in _spawnTransforBLue)
         {
             Instantiate(_prefabBotBlue, item.transform.position, Quaternion.identity).transform.SetParent(item); 
+
 
         }
     }
