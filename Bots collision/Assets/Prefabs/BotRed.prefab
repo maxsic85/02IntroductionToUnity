@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6007438673355847706}
   - component: {fileID: -7506570477939531423}
   - component: {fileID: -833232204184305930}
+  - component: {fileID: 7395015421384837858}
   m_Layer: 0
   m_Name: BotRed
   m_TagString: Bot
@@ -152,8 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885b3fbd3fe063f4885a45b30af0eb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 6007438673355847702}
-  waypoints: []
+  _navMeshAgent: {fileID: 6007438673355847702}
+  _waypoints: []
+  _currentPoints: []
 --- !u!136 &-833232204184305930
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -168,3 +170,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &7395015421384837858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007438673355847699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0db601d0a66a84a91abb75d376a9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myInventory: []

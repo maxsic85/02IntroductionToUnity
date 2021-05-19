@@ -10,7 +10,8 @@ public class Item : MonoBehaviour
         if (coll.gameObject.GetComponent<Inventory>())
         {
             coll.gameObject.GetComponent<Inventory>().CurrentInventory.Add(gameObject);
-            gameObject.SetActive(false);
+          
+           gameObject.SetActive(false);
         }
     }
 

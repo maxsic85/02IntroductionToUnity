@@ -10,7 +10,7 @@ public class BulletDestroy : MonoBehaviour
             Destroy(gameObject);
         
     }
-    private void Start()    5SSSSSSSSSSSS
+    private void Start()    
     {
         Destroy(gameObject, 2f);
     }

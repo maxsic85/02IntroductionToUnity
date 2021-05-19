@@ -21,7 +21,7 @@ public class BotsInstantiate : MonoBehaviour
         {
             Instantiate(_prefabBotBlue, item.transform.position, Quaternion.identity).transform.SetParent(item); 
 
-
+         
         }
     }
 
