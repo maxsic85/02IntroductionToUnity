@@ -16,19 +16,28 @@ public class WayPointPatrol : MonoBehaviour
         {
             waypoints.Add(GameObject.FindGameObjectWithTag("WayPoint").transform);
         }
-        navMeshAgent.SetDestination(waypoints[0].position);
+        navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
+        //navMeshAgent.SetDestination(waypoints[0].position);
+
     }
 
     void Update()
     {
 
-        print($"m_CurrentWaypointIndex{m_CurrentWaypointIndex} ,navMeshAgent.remainingDistance-{navMeshAgent.remainingDistance},navMeshAgent.stoppingDistance-{navMeshAgent.stoppingDistance}");
+        //print($"m_CurrentWaypointIndex{m_CurrentWaypointIndex} ,navMeshAgent.remainingDistance-{navMeshAgent.remainingDistance},navMeshAgent.stoppingDistance-{navMeshAgent.stoppingDistance}");
+        //if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        //{
+        //    m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Count;
+        //    navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+        //}
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-        {
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Count;
-            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        }
+            navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
 
 
+    }
+
+    public void PrintSomthing()
+    {
+        print("Hello");
     }
 }

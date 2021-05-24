@@ -4,44 +4,52 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    Shoot _shoot;
     public GameObject _builetPrefab;
     public Transform _transformForStartBuilett;
 
-    [SerializeField,Range(0,500f)]
+    [SerializeField, Range(0, 500f)]
     float _damage = 10f;
-    [SerializeField,Range(0,5000f)]
+    [SerializeField, Range(0, 5000f)]
     float _range = 500f;
-    [SerializeField,Range(0,10000f)]
-    float _speedFlyBuilett = 3000f;
+    [SerializeField, Range(0, 500f)]
+    float _shootRate = 10f;
+    [SerializeField, Range(0, 10000f)]
+    float _speedFlyBuilett = 10f;
     Camera _camera;
+    private float _nextTimeToFire = 0f;
     // Start is called before the first frame update
     void Start()
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        _shoot = new Shoot(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")) Shoot();
+        AtackEnemy();
 
     }
 
-    private void Shoot()
+    private void AtackEnemy()
     {
-        RaycastHit _hit;
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out _hit, _range))
+        if (Input.GetButtonDown("Fire1") && Time.time >= _nextTimeToFire)
         {
-            Debug.DrawLine(_camera.transform.position, _hit.transform.position, Color.red);
-            Debug.Log($"{_hit.transform.name}");
-
-            GameObject outBuilett = Instantiate(_builetPrefab, _transformForStartBuilett.position, Quaternion.identity);
-
-            outBuilett.GetComponent<Rigidbody>().AddForce(transform.forward * _speedFlyBuilett);
-            Destroy(outBuilett, 2f);
-
-            Target _currentTarget = _hit.transform.GetComponent<Target>();
-            if (_currentTarget != null) _currentTarget.TakeDamage(_damage);
+            _nextTimeToFire = Time.time + 1f / _shootRate;
+            _shoot.Shooting
+                (
+                _camera.transform.position,
+                _camera.transform.forward,
+                _transformForStartBuilett.position,
+                _range, _builetPrefab,
+                _damage,
+                _speedFlyBuilett
+                );
         }
     }
 }
+
+
+
+
