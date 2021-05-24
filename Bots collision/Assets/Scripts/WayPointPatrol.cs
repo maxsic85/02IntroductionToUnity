@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,39 +6,67 @@ using UnityEngine.AI;
 
 public class WayPointPatrol : MonoBehaviour
 {
-    public NavMeshAgent navMeshAgent;
-    public List<Transform> waypoints;
+    public NavMeshAgent _navMeshAgent;
+    [SerializeField]
+    private List<Transform> _waypoints;
+    [SerializeField]
+    private Transform[] _currentPoints;
+    private GameObject _player;
 
     int m_CurrentWaypointIndex;
+    System.Random r;
 
-    void Awake()
+    void Start()
     {
-        if (waypoints.Count == 0)
-        {
-            waypoints.Add(GameObject.FindGameObjectWithTag("WayPoint").transform);
-        }
-        navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
-        //navMeshAgent.SetDestination(waypoints[0].position);
+        r = new System.Random();
+        _waypoints = new List<Transform>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        GetListPoints();
+        CreateRandomPOintsForPatrul(2, out Transform[] points);
+        _currentPoints = points;
 
+    }
+
+    private void CreateRandomPOintsForPatrul(int size, out Transform[] points)
+    {
+        points = new Transform[size];
+        for (int i = 0; i < size; i++)
+        {
+            points[i] = _waypoints[UnityEngine.Random.Range(0, _waypoints.Count)];
+            //points[i] = _waypoints[r.Next(0, _waypoints.Count)];
+
+        }
+    }
+
+    private void GetListPoints()
+    {
+        var Points = GameObject.FindGameObjectsWithTag("WayPoint");
+        foreach (var item in Points)
+        {
+            _waypoints.Add(item.transform);
+        }
     }
 
     void Update()
     {
-
-        //print($"m_CurrentWaypointIndex{m_CurrentWaypointIndex} ,navMeshAgent.remainingDistance-{navMeshAgent.remainingDistance},navMeshAgent.stoppingDistance-{navMeshAgent.stoppingDistance}");
-        //if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-        //{
-        //    m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Count;
-        //    navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        //}
-        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-            navMeshAgent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
-
+        // print($"m_CurrentWaypointIndex{m_CurrentWaypointIndex} ,navMeshAgent.remainingDistance-{navMeshAgent.remainingDistance},navMeshAgent.stoppingDistance-{navMeshAgent.stoppingDistance}");
+        FollowToWayPoints(_currentPoints);
+        // PlayerFollowing();
 
     }
 
-    public void PrintSomthing()
+    private void FollowToWayPoints(Transform[] point)
     {
-        print("Hello");
+        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+        {
+            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % point.Length;
+            _navMeshAgent.SetDestination(point[m_CurrentWaypointIndex].position);
+        }
+    }
+
+    private void PlayerFollowing()
+    {
+        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            _navMeshAgent.SetDestination(_player.transform.position);
     }
 }

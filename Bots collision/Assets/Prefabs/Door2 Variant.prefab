@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!54 &1219475689
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2599540565105489371}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &4496214795670728377
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29,17 +13,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!192 &3756360077565935798
-OcclusionArea:
+--- !u!208 &4091607322893756591
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2599540565105489371}
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
-  m_IsViewVolume: 1
+  m_TimeToStationary: 0.5
 --- !u!114 &3676160967485247463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,12 +54,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4727197859439182748, guid: fda98d42de48c504ebdee693ad1045a5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727197859439182748, guid: fda98d42de48c504ebdee693ad1045a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22.501
       objectReference: {fileID: 0}
     - target: {fileID: 4727197859439182748, guid: fda98d42de48c504ebdee693ad1045a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.25
+      value: 1.103
       objectReference: {fileID: 0}
     - target: {fileID: 4727197859439182748, guid: fda98d42de48c504ebdee693ad1045a5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -116,7 +109,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7963540224894772762, guid: fda98d42de48c504ebdee693ad1045a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fda98d42de48c504ebdee693ad1045a5, type: 3}
 --- !u!1 &2599540565105489371 stripped
 GameObject:

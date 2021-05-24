@@ -23,7 +23,7 @@ public class Shoot : MonoBehaviour
             outBuilett.GetComponent<Rigidbody>().AddForce(_current.transform.forward * _speed);
             //  GameObject.Destroy(outBuilett, 2f);
 
-            Target _currentTarget = _hit.transform.GetComponent<Target>();
+            HealthComponent _currentTarget = _hit.transform.GetComponent<HealthComponent>();
             if (_currentTarget != null) _currentTarget.TakeDamage(_damage);
         }
     }
