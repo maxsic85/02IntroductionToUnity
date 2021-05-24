@@ -10,7 +10,9 @@ public class HealthUpItem : MonoBehaviour
        
         if (coll.gameObject.GetComponent<HealthComponent>())
         {
-            coll.gameObject.GetComponent<HealthComponent>().Health += _healthUpValue;
+            //  coll.gameObject.GetComponent<HealthComponent>().Health += _healthUpValue;
+            coll.gameObject.GetComponent<IDamageble>().TakeDamage(-_healthUpValue);
+
             gameObject.SetActive(false);
         }
     }

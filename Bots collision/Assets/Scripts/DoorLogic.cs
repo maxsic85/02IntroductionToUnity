@@ -7,7 +7,7 @@ public class DoorLogic : MonoBehaviour
     public GameObject Key;
     private void OnTriggerEnter(Collider coll)
     {
-        print($"Enter {coll.name}");
+      //  print($"Enter {coll.name}");
         if (!coll.gameObject.GetComponent<Inventory>()) return;
         else if (coll.gameObject.GetComponent<Inventory>().CurrentInventory.Contains(Key))
         {

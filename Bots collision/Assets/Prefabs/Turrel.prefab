@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7841772846655273797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.501}
+  m_LocalPosition: {x: 0, y: 0, z: 0.728}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8513880321945451141}
@@ -239,11 +239,11 @@ MonoBehaviour:
   _startBuiletPosition: {fileID: 2404864260687634614}
   _builetPrefaB: {fileID: 2906702825054354682, guid: d5d4c264a86ba8f459eed0efcee2245a, type: 3}
   _damage: 10
-  _range: 500
-  _shootRate: 10
-  _speedFlyBuilett: 10
+  _range: 300
+  _shootRate: 3
+  _speedFlyBuilett: 8
   _players: []
-  _speedRotation: 5
+  _speedRotation: 3
   _minDistance: 10
 --- !u!1 &8513880321945451138
 GameObject:

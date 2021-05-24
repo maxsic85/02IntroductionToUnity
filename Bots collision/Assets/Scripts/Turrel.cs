@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Turrel : MonoBehaviour
 {
+    timeManager tm;
     Shoot _shoot;
     Gun gun;
 
@@ -24,32 +25,44 @@ public class Turrel : MonoBehaviour
     private float _speedRotation = 5f;
     [SerializeField]
     private float _minDistance = 10f;
+    [SerializeField, Range(0, 500f)]
+    int _shootDelay = 1;//sec
+    [SerializeField, Range(0, 500f)]
+    int _shootPeriod = 250; //msec
+    private bool isShootYet;
 
-    private float _nextTimeToFire = 0f;
-   
     void Start()
     {
-        _players = new List<GameObject>();
-        var bots = GameObject.FindGameObjectsWithTag("Bot");
-        foreach (var item in bots)
-        {
-            _players.Add(item);
-        }
-        var _player = GameObject.FindGameObjectWithTag("Player");
-        _players.Add(_player);
-
-        _shoot = new Shoot(gameObject);
+        _shoot = new Shoot(this.gameObject);
+        SetDelayShoot();
+        GetEnemies();
     }
-
-    // Update is called once per frame
     void Update()
     {
         foreach (var item in _players)
         {
-            AtackEnemy(item,_shootRate);
+            AtackEnemy(item, _shootRate);
         }
     }
+    private void SetDelayShoot()
+    {
+        tm = new timeManager(_shootDelay, _shootPeriod);
+        tm.StartTimerWithOutDispose(this);
+    }
+    private void GetEnemies()
+    {
+        _players = new List<GameObject>();
+        var bots = GameObject.FindObjectsOfType<HealthComponent>();
 
+        // var dssds = FindObjectsOfType<WayPointPatrol>().GetType().GetProperty("CurrentMob").GetValue(FindObjectOfType<WayPointPatrol>().gameObject);//.GetValue(transform.gameObject.GetComponents<GameObject>());
+        //GameObject[] bots = (GameObject[])dssds;
+        foreach (var item in bots)
+        {
+            if (item.gameObject.GetComponent<IBot>() != null) _players.Add(item.gameObject);
+        }
+        var _player = GameObject.FindGameObjectWithTag("Player");
+        _players.Add(_player);
+    }
     private void AtackEnemy(GameObject item, float shootRate)
     {
         if (item != null)
@@ -61,22 +74,27 @@ public class Turrel : MonoBehaviour
                     _speedRotation * Time.deltaTime, 0f);
                 transform.rotation = Quaternion.LookRotation(newDir);
 
-                if (Time.time >= _nextTimeToFire)
+                if (tm.IsElapsed && !isShootYet)
                 {
-                    _nextTimeToFire = Time.time + 1f / shootRate;
-
+                    isShootYet = true;
                     _shoot.Shooting
-                                                        (
-                                                        transform.GetChild(0).position,
-                                                         newDir,
-                                                        _startBuiletPosition.position,
-                                                        _range,
-                                                        _builetPrefaB,
-                                                        _damage,
-                                                        _speedFlyBuilett
-                                                        );
+                                (
+                                transform.GetChild(0).position,
+                                    newDir,
+                                _startBuiletPosition.position,
+                                _range,
+                                _builetPrefaB,
+                                _damage,
+                                _speedFlyBuilett
+                                );
+                }
+                else if (!tm.IsElapsed)
+                {
+                    isShootYet = false;
+                    return;
                 }
             }
         }
     }
 }
+

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9021533732045374437}
   - component: {fileID: 9021533732045374438}
   - component: {fileID: 1238581387}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1a90a097c36d748a525b4fe51b0e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 7
   _gravity: -2.8
 --- !u!143 &9021533732045374437
 CharacterController:
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 9021533733339357860}
   - component: {fileID: 9021533733339357859}
   - component: {fileID: 9021533733339357861}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -206,6 +206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUN
       objectReference: {fileID: 0}
+    - target: {fileID: 825620362939690058, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 825620362939690059, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -257,6 +261,10 @@ PrefabInstance:
     - target: {fileID: 825620362939690103, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: _speedFlyBuilett
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 825620363261364846, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 825620363261364847, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: m_LocalPosition.x

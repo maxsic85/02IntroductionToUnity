@@ -6,7 +6,7 @@ public class Item : MonoBehaviour
 {
     private void OnTriggerEnter(Collider coll)
     {
-        print($"Enter {coll.name}");
+      //  print($"Enter {coll.name}");
         if (coll.gameObject.GetComponent<Inventory>())
         {
             coll.gameObject.GetComponent<Inventory>().CurrentInventory.Add(gameObject);
