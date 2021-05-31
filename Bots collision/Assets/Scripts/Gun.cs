@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-    #region example with delegate
-    //void Shoot(object o, StartTimer del)
-    //{
-    //    del(this);
-    //    
-    //}
-    // Shoot(this, new StartTimer(tm.StartTimerWithOutDispose));
-    //
-    #endregion
+#region example with delegate
+//void Shoot(object o, StartTimer del)
+//{
+//    del(this);
+//    
+//}
+// Shoot(this, new StartTimer(tm.StartTimerWithOutDispose));
+//
+#endregion
 
 public class Gun : MonoBehaviour
 {
+    public Animator _animator;
     public GameObject _builetPrefab;
     public Transform _transformForStartBuilett;
 
@@ -26,12 +27,10 @@ public class Gun : MonoBehaviour
     float _range = 500f;
     [SerializeField, Range(0, 500f)]
     int _shootDelay = 1;//sec
-    [SerializeField, Range(0, 500f)]
+    [SerializeField, Range(0, 5000f)]
     int _shootPeriod = 1000; //msec
     [SerializeField, Range(0, 10000f)]
     float _speedFlyBuilett = 10f;
-    private float _nextTimeToFire = 0f;
-    private bool _isElapsed;
     private bool isShootYet;
 
     // Start is called before the first frame update
@@ -41,7 +40,6 @@ public class Gun : MonoBehaviour
         _shoot = new Shoot(gameObject);
         tm = new timeManager(_shootDelay, _shootPeriod);
     }
-
     void Update()
     {
         AtackEnemy();
@@ -56,6 +54,7 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && !isShootYet)
         {
+        _animator.SetBool("shoot",true);
             tm.StartTimerWithDispose(this);
             isShootYet = true;
             _shoot.Shooting
@@ -67,11 +66,14 @@ public class Gun : MonoBehaviour
                   _damage,
                   _speedFlyBuilett
                   );
-           
+
         }
         else if (tm.IsElapsed)
         {
             isShootYet = false;
+            _animator.SetBool("shoot", false);
+
+
             return;
         }
     }

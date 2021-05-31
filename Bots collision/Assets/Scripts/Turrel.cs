@@ -8,6 +8,7 @@ public class Turrel : MonoBehaviour
     Shoot _shoot;
     Gun gun;
 
+    public Animator _animator;
     public Transform _startBuiletPosition;
     public GameObject _builetPrefaB;
 
@@ -76,6 +77,7 @@ public class Turrel : MonoBehaviour
 
                 if (tm.IsElapsed && !isShootYet)
                 {
+                    _animator.SetBool("shoot",true);
                     isShootYet = true;
                     _shoot.Shooting
                                 (
@@ -90,6 +92,7 @@ public class Turrel : MonoBehaviour
                 }
                 else if (!tm.IsElapsed)
                 {
+                    _animator.SetBool("shoot", true);
                     isShootYet = false;
                     return;
                 }

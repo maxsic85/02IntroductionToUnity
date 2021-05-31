@@ -31,6 +31,10 @@ public class WayPointPatrol : MonoBehaviour, IBot
     int m_CurrentWaypointIndex;
     private bool ispatrolDistance, isAttackDistance, isAtacking;
     private bool isShootYet;
+    [SerializeField]
+    private Transform red;
+    [SerializeField]
+    private Transform blue;
 
     public GameObject CurrentBot { get => this.gameObject; }
 
@@ -49,6 +53,32 @@ public class WayPointPatrol : MonoBehaviour, IBot
 
     }
     void Update()
+    {
+        if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
+        switch (gameObject.tag)
+        {
+            case "BotRed":
+                if (ispatrolDistance && !isAttackDistance) PlayerFollowing(blue);
+                if (ispatrolDistance && isAttackDistance) Attack(blue);
+                break;
+            case "BotBlue":
+                if (ispatrolDistance && !isAttackDistance) PlayerFollowing(red);
+                if (ispatrolDistance && isAttackDistance) Attack(red);
+                break;
+            default:
+                break;
+        }
+        //AI();
+
+        //   ispatrolDistance = Physics.CheckSphere(transform.position, _patrulDistance, _masks_playerMask);
+        //   isAttackDistance = Physics.CheckSphere(transform.position, _aTtackDistance, _masks_playerMask);
+
+        //if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
+        //if (ispatrolDistance && !isAttackDistance) PlayerFollowing();
+        //if (ispatrolDistance && isAttackDistance) Attack();
+    }
+
+    private void AI()
     {
         switch (this.gameObject.tag)
         {
@@ -74,13 +104,66 @@ public class WayPointPatrol : MonoBehaviour, IBot
             default:
                 break;
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (gameObject.tag)
+        {
+            case "BotRed":
+                if (other.tag == "BotBlue")
+                {
+                    print(other);
+                    ispatrolDistance = Physics.CheckSphere(transform.position, _patrulDistance, _masks_playerMask);
+                    isAttackDistance = Physics.CheckSphere(transform.position, _aTtackDistance, _masks_playerMask);
+                    blue = other.transform;
+                    if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
+                    //if (ispatrolDistance && !isAttackDistance) PlayerFollowing(other.transform);
+                    //if (ispatrolDistance && isAttackDistance) Attack(other.transform);
+                }
+                break;
+            case "BotBlue":
+                if (other.tag == "BotRed")
+                {
+                    ispatrolDistance = Physics.CheckSphere(transform.position, _patrulDistance, _botMask);
+                    isAttackDistance = Physics.CheckSphere(transform.position, _aTtackDistance, _botMask);
+                    red = other.transform;
+                    if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
+                    //if (ispatrolDistance && !isAttackDistance) PlayerFollowing(other.transform);
+                    //if (ispatrolDistance && isAttackDistance) Attack(other.transform);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-        //   ispatrolDistance = Physics.CheckSphere(transform.position, _patrulDistance, _masks_playerMask);
-        //   isAttackDistance = Physics.CheckSphere(transform.position, _aTtackDistance, _masks_playerMask);
 
-        //if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
-        //if (ispatrolDistance && !isAttackDistance) PlayerFollowing();
-        //if (ispatrolDistance && isAttackDistance) Attack();
+    private void AI2()
+    {
+        switch (this.gameObject.tag)
+        {
+            case "BotRed":
+                ispatrolDistance = Physics.CheckSphere(transform.position, _patrulDistance, _masks_playerMask);
+                //isAttackDistance = Physics.CheckSphere(transform.position, _aTtackDistance, _botMask);
+                //if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
+                //if (ispatrolDistance && !isAttackDistance) PlayerFollowing(_.transform);
+                //if (ispatrolDistance && isAttackDistance) Attack(hitInfo02.transform);
+                break;
+            case "BotBlue":
+                // SphereCast(Vector3 origin, float radius, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask);
+                // if(hitInfo.transform!=null) print(hitInfo.transform.name);
+                ispatrolDistance = Physics.SphereCast(transform.position, _patrulDistance, transform.forward, out RaycastHit hitInfo, 15, _botMask);
+                isAttackDistance = Physics.SphereCast(transform.position, _aTtackDistance, transform.forward, out RaycastHit hitInfo2, 5, _botMask);
+                if (!ispatrolDistance && !isAttackDistance) FollowToWayPoints(_currentPoints);
+                if (ispatrolDistance && !isAttackDistance) PlayerFollowing(hitInfo.transform);
+                if (ispatrolDistance && isAttackDistance) Attack(hitInfo2.transform);
+                //  ispatrolDistance = Physics.CheckSphere(transform.position, _patrulDistance, _botMask);
+                // isAttackDistance = Physics.CheckSphere(transform.position, _aTtackDistance, _botMask);
+
+                break;
+            default:
+                break;
+        }
     }
 
     private void GetListPoints()
@@ -113,12 +196,24 @@ public class WayPointPatrol : MonoBehaviour, IBot
     }
     private void PlayerFollowing(Transform followingPosition)
     {
+        if (followingPosition == null || transform == null)
+        {
+            isAttackDistance = false;
+            ispatrolDistance = false;
+        return;
+        } 
         this._navMeshAgent.speed = 6;
         transform.LookAt(followingPosition.transform);
         _navMeshAgent.SetDestination(followingPosition.transform.position);
     }
     private void Attack(Transform followingPosition)
     {
+        if (followingPosition == null || transform == null)
+        {
+            isAttackDistance = false;
+            ispatrolDistance = false;
+            return;
+        }
 
         transform.LookAt(followingPosition.transform);
         _navMeshAgent.SetDestination(transform.position);

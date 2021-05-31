@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9021533732045374437}
   - component: {fileID: 9021533732045374438}
   - component: {fileID: 1238581387}
+  - component: {fileID: 1401282981}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -47,8 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1a90a097c36d748a525b4fe51b0e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 1401282981}
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 64
   _speed: 7
-  _gravity: -2.8
+  _gravity: -20
+  _jumpPower: 1
+  __groundDistance: 1.5
 --- !u!143 &9021533732045374437
 CharacterController:
   m_ObjectHideFlags: 0
@@ -93,6 +100,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
+--- !u!95 &1401282981
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021533732045374436}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2b0302f333c4aa747ae865dc1ad77015, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9021533733339357857
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +131,7 @@ GameObject:
   - component: {fileID: 9021533733339357860}
   - component: {fileID: 9021533733339357859}
   - component: {fileID: 9021533733339357861}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -208,7 +234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 825620362939690058, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 825620362939690059, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: m_RootOrder
@@ -259,12 +285,20 @@ PrefabInstance:
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 825620362939690103, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
+      propertyPath: _damage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 825620362939690103, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 1401282981}
+    - target: {fileID: 825620362939690103, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: _speedFlyBuilett
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 825620363261364846, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 825620363261364847, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: m_LocalPosition.x

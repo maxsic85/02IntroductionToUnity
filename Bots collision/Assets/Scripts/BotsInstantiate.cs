@@ -19,8 +19,8 @@ public class BotsInstantiate : MonoBehaviour
         }
         foreach (var item in _spawnTransforBLue)
         {
-            Instantiate(_prefabBotBlue, item.transform.position, Quaternion.identity).transform.SetParent(item); 
-
+            Instantiate(_prefabBotBlue, item.transform.position, Quaternion.identity).transform.SetParent(item);
+        
          
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
 {
+    public Animator _animator;
     public LayerMask _groundMask;
     private bool _isGround = true;
 
@@ -20,6 +21,8 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
     float __groundDistance = 1;
     CharacterController _controller;
 
+    public float Speed { get => _speed; set => _speed = value; }
+
     void Start()
     {
         _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
@@ -28,12 +31,18 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
     {
         Move();
         Jump();
+
+
     }
     public void Move()
     {
         if (_isGround && _velocity.y < 0) _velocity.y = -2f;
         _direction.x = Input.GetAxis("Horizontal");
         _direction.z = Input.GetAxis("Vertical");
+
+        if (_direction.x != 0 || _direction.z != 0) _animator.SetBool("walk", true);
+        else _animator.SetBool("walk", false);
+
         Vector3 mov = transform.right * _direction.x + transform.forward * _direction.z;
         _controller.Move(mov * _speed * Time.deltaTime);
         _velocity.y += _gravity * Time.deltaTime;
@@ -49,4 +58,6 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
             _velocity.y = Mathf.Sqrt(_jumpPower * -2f * _gravity);
         }
     }
+
+
 }
