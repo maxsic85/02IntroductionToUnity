@@ -293,6 +293,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1401282981}
     - target: {fileID: 825620362939690103, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
+      propertyPath: _shootPeriod
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 825620362939690103, guid: cbb1396352290ca40a491cee9b5ef089, type: 3}
       propertyPath: _speedFlyBuilett
       value: 20
       objectReference: {fileID: 0}
