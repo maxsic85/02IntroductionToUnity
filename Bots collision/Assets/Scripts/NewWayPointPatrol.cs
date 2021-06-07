@@ -18,6 +18,8 @@ public class NewWayPointPatrol : MonoBehaviour, IMoveble
     public NavMeshAgent _navMeshAgent;
     public team _currentTeam;
     public Animator _animator;
+    public AudioClip _fire;
+    private AudioSource _audio;
 
     [SerializeField]
     private bool isFollowDistance;
@@ -56,6 +58,7 @@ public class NewWayPointPatrol : MonoBehaviour, IMoveble
     void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
+        _audio = GetComponent<AudioSource>();
     }
     private void Start()
     {
@@ -157,6 +160,7 @@ public class NewWayPointPatrol : MonoBehaviour, IMoveble
     }
     private void Attack(Transform followingPosition)
     {
+       
         transform.LookAt(followingPosition.transform);
         var a = Physics.Raycast(transform.position, transform.forward, out RaycastHit info);
         if (info.transform == null) return;
@@ -170,6 +174,7 @@ public class NewWayPointPatrol : MonoBehaviour, IMoveble
             _navMeshAgent.SetDestination(transform.position);
             if (tm.IsElapsed && !isShootYet)
             {
+                _audio.PlayOneShot(_fire);
                 _animator.SetBool("BotShoot", true);
                 isShootYet = true;
                 shooting.Shooting(transform.position, transform.forward, _transformBulletStart.position, 50f, _builetPref, 10f, 10f);

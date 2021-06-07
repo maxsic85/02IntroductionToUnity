@@ -6,6 +6,11 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
 {
     public Animator _animator;
     public LayerMask _groundMask;
+    public AudioClip _step;
+    public AudioClip _jump;
+    private AudioSource _audio;
+
+
     private bool _isGround = true;
 
     Vector3 _direction;
@@ -20,9 +25,13 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
     [SerializeField, Range(0, 50)]
     float __groundDistance = 1;
     CharacterController _controller;
+    private float m_FootstepDistanceCounter;
 
     public float Speed { get => _speed; set => _speed = value; }
-
+    void Awake()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
     void Start()
     {
         _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
@@ -40,14 +49,39 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
         _direction.x = Input.GetAxis("Horizontal");
         _direction.z = Input.GetAxis("Vertical");
 
-        if (_direction.x != 0 || _direction.z != 0) _animator.SetBool("walk", true);
-        else _animator.SetBool("walk", false);
+        if (_direction.x != 0 || _direction.z != 0)
+        {
+            _animator.SetBool("walk", true);
+            PlayStepSound();
+
+        }
+        else
+        {
+            _animator.SetBool("walk", false);
+          
+        } 
 
         Vector3 mov = transform.right * _direction.x + transform.forward * _direction.z;
         _controller.Move(mov * _speed * Time.deltaTime);
         _velocity.y += _gravity * Time.deltaTime;
         _controller.Move(_velocity * Time.deltaTime);
+
     }
+
+    private void PlayStepSound()
+    {
+        float chosenFootstepSfxFrequency = 1;
+                     
+        if (m_FootstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
+        {
+            m_FootstepDistanceCounter = 0f;
+            _audio.PlayOneShot(_step);
+        }
+
+        // keep track of distance traveled for footsteps sound
+        m_FootstepDistanceCounter += _velocity.magnitude * Time.deltaTime;
+    }
+
     public void Jump()
     {
 
@@ -56,6 +90,7 @@ public class PlayerMove : MonoBehaviour, IMoveble, IJumpble
         {
             //print("I am jump");
             _velocity.y = Mathf.Sqrt(_jumpPower * -2f * _gravity);
+            _audio.PlayOneShot(_jump);
         }
     }
 

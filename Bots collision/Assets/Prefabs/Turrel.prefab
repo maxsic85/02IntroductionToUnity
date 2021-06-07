@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 8513880320901036571}
   - component: {fileID: 8513880320901036568}
   - component: {fileID: 8513880320901036569}
+  - component: {fileID: 721871933}
   m_Layer: 0
   m_Name: Turrel
   m_TagString: Untagged
@@ -127,6 +128,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &721871933
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8513880320901036567}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 51533dfaa163f394eaa341985bd54df1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8513880321078205292
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +160,7 @@ GameObject:
   - component: {fileID: 8513880321078205297}
   - component: {fileID: 8513880321078205294}
   - component: {fileID: 8513880321078205299}
+  - component: {fileID: 532914687}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -189,7 +210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: efcc084140b0f014098e5fe3cfe31e83, type: 2}
+  - {fileID: 2100000, guid: 9e5d974346795f44e8a18b792af9f784, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -236,15 +257,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f96660dc50fac4d9c227ab9933dbba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 721871933}
   _startBuiletPosition: {fileID: 2404864260687634614}
   _builetPrefaB: {fileID: 2906702825054354682, guid: d5d4c264a86ba8f459eed0efcee2245a, type: 3}
   _damage: 10
-  _range: 300
+  _range: 50
   _shootRate: 3
   _speedFlyBuilett: 8
   _players: []
   _speedRotation: 3
   _minDistance: 10
+  _shootDelay: 1
+  _shootPeriod: 250
+--- !u!114 &532914687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8513880321078205292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785ff168a07aaca4f88309f3f4938e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeForDrop: 0
+  OnFlagDrop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8513880321945451138
 GameObject:
   m_ObjectHideFlags: 0

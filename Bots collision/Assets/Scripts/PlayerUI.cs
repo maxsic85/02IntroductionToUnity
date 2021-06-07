@@ -18,6 +18,6 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _heathText.text ="Health "+ _playerHealth.Health.ToString();
+     //   _heathText.text ="Health "+ _playerHealth.Health.ToString();
     }
 }

@@ -11,6 +11,8 @@ public class Turrel : MonoBehaviour
     public Animator _animator;
     public Transform _startBuiletPosition;
     public GameObject _builetPrefaB;
+    public AudioClip _fire;
+    private AudioSource _audio;
 
     [SerializeField, Range(0, 500f)]
     float _damage = 10f;
@@ -31,6 +33,11 @@ public class Turrel : MonoBehaviour
     [SerializeField, Range(0, 500f)]
     int _shootPeriod = 250; //msec
     private bool isShootYet;
+
+    void Awake()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -79,6 +86,7 @@ public class Turrel : MonoBehaviour
                 {
                     _animator.SetBool("shoot",true);
                     isShootYet = true;
+                    _audio.PlayOneShot(_fire);
                     _shoot.Shooting
                                 (
                                 transform.GetChild(0).position,

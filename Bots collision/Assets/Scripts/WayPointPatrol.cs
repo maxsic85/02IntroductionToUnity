@@ -10,6 +10,9 @@ public class WayPointPatrol : MonoBehaviour, IBot
     public Transform _transformBulletStart;
     public LayerMask _masks_playerMask, _groundMask, _botMask;
     public NavMeshAgent _navMeshAgent;
+    public AudioClip _fire;
+    private AudioSource _audio;
+
 
     [SerializeField]
     private List<Transform> _waypoints;

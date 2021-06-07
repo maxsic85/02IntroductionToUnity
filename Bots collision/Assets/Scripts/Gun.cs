@@ -17,6 +17,9 @@ public class Gun : MonoBehaviour
     public GameObject _builetPrefab;
     public Transform _transformForStartBuilett;
 
+    public AudioClip _fire;
+     private AudioSource _audio;
+
     Camera _camera;
     timeManager tm;
     Shoot _shoot;
@@ -32,7 +35,10 @@ public class Gun : MonoBehaviour
     [SerializeField, Range(0, 10000f)]
     float _speedFlyBuilett = 10f;
     private bool isShootYet;
-
+    void Awake()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +63,7 @@ public class Gun : MonoBehaviour
         _animator.SetBool("shoot",true);
             tm.StartTimerWithDispose(this);
             isShootYet = true;
+            _audio.PlayOneShot(_fire);
             _shoot.Shooting
                   (
                   _camera.transform.position,

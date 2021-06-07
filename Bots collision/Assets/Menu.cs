@@ -12,13 +12,13 @@ public class Menu : MonoBehaviour
     public Slider _slider;
     LoadScene _manager;
     public Animator _anim;
-    public
+  
     // Start is called before the first frame update
     void Awake()
     {
         _manager = FindObjectOfType<LoadScene>();
         _slider.minValue = 0;
-        _slider.maxValue = 100;
+        _slider.maxValue = 1;
 
     }
 
