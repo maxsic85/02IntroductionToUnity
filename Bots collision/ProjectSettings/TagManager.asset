@@ -7,15 +7,17 @@ TagManager:
   - Bot
   - WayPoint
   - Key
+  - BotBlue
+  - BotRed
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PlayerMask
   - Water
   - UI
-  - 
-  - 
+  - GroundMask
+  - BotMask
   - 
   - 
   - 
